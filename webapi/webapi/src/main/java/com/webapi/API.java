@@ -6,23 +6,35 @@ import com.webapi.model.User;
 import com.webapi.repositories.ConversationsRepository;
 import com.webapi.repositories.MessagesRepository;
 import com.webapi.repositories.UserRepository;
-import org.bson.json.JsonObject;
-import org.json.JSONObject;
+import com.webapi.security.jwt.JwtTokenProvider;
+import com.webapi.security.payload.LoginRequest;
+import com.webapi.security.payload.LoginResponse;
+import com.webapi.security.user.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.GsonJsonParser;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class API {
+    @Autowired
+    AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtTokenProvider tokenProvider;
+
     @Autowired
     UserRepository userRepository;
 
@@ -31,6 +43,23 @@ public class API {
 
     @Autowired
     MessagesRepository messagesRepository;
+
+    //Login
+    @PostMapping("/login")
+    public LoginResponse authenticateUser(@RequestBody LoginRequest loginRequest,HttpServletRequest request){
+        System.out.println(loginRequest);
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.getUsername(),
+                        loginRequest.getPassword()
+                )
+        );
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String jwt = tokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
+        return new LoginResponse(jwt);
+    }
+
     //User
     @GetMapping("/contact/{userid}")
     public List<User> getFriends(@PathVariable(name = "userid") String user){

@@ -1,0 +1,26 @@
+@import './Variables.scss';
+@import './icon/icons-1.8.1/font/bootstrap-icons.css';
+
+:root{
+    font-size: 10px;
+}
+html{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.btn{
+    position: absolute;
+    border-radius: 20px;
+    border: $border;
+    z-index: 20;
+    &:hover{
+        cursor: pointer;
+        opacity: 0.9;
+    }
+    &Blue{
+        background-color: blue ;
+        color: whitesmoke;
+    }
+}

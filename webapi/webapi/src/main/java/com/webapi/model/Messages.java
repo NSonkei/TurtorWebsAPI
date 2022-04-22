@@ -16,4 +16,10 @@ public class Messages {
     private String fromUser;
     private String toUser;
     private Boolean isDelete;
+    private state state;
+    public enum state{
+        CHAT,
+        JOIN,
+        LEAVE
+    }
 }

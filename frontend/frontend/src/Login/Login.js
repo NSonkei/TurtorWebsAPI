@@ -1,11 +1,13 @@
 import styles from "./Login.module.scss"
 import clsx from "clsx"
-import { useState } from "react"
-import {postLogin} from "../Global/API"
-function Login(){
+import {useState } from "react"
+import {postLogin,getUser} from "../Global/API"
+function Login({setIsLogging}){
     //State
     const [username,setUsername] = useState('')
     const [password,setPassword] = useState('')
+    const [token,setToken] = useState({})
+    const [data,setData] = useState({})
     //Classes
     const classesContainer = clsx(styles.container)
     const classesInputArea = clsx(styles.inputArea)
@@ -13,8 +15,11 @@ function Login(){
     const classesButtonArea = clsx(styles.buttonArea)
     //Function
     function loginHandle(){
-        postLogin(username,password)
-        alert("dang nhap thang cong")
+        postLogin(setToken,username,password)
+        if (token.accessToken) {
+            localStorage.setItem('token',token.accessToken)
+            setIsLogging(true)
+        }
     }
     return (
         <div>

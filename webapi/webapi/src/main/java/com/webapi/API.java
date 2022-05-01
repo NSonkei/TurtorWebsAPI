@@ -19,6 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +62,26 @@ public class API {
     }
 
     //User
+    @PutMapping("/register")
+    public ResponseEntity addUser(@RequestBody Map user){
+        User userNew = new User();
+        System.out.println(user);
+        userNew.setUserId(user.get("phone").toString());
+        userNew.setLastName(user.get("lastName").toString());
+        userNew.setFirstName(user.get("firstName").toString());
+        userNew.setEmail(user.get("email").toString());
+        Optional<Object> avatar = Optional.of(Optional.ofNullable(user.get("avatar"))
+                .orElse("https://thuthuatnhanh.com/wp-content/uploads/2020/02/avatar-nguoi-dau-mat-thug-life-ngau-loi-390x390.jpg"));
+        userNew.setAvatar(avatar.get().toString());
+        String mess = userRepository.addUser(userNew,user.get("password").toString());
+        if (mess.equals("ok")){
+            return ResponseEntity.ok().body("Add User Success");
+        } else {
+            System.out.println(mess);
+            return ResponseEntity.ok().body(mess);
+        }
+    }
+
     @GetMapping("/contact/{userid}")
     public List<User> getFriends(@PathVariable(name = "userid") String user){
         List<User> friendOfUser = new ArrayList<>();

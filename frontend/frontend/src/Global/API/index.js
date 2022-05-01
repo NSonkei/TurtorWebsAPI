@@ -1,3 +1,1 @@
-import {postLogin,getUser} from './API'
-
-export {postLogin,getUser}
+export * from './API'

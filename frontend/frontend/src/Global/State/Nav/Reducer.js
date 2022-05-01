@@ -1,6 +1,8 @@
-import {NAV_MESS_MESS} from './contants'
+import {LOGIN, NAV_MESS_MESS, NAV_CON, NAV_MESS} from './contants'
 const initState = {
+    user:{},
     navSide:'mess',
+    content:'introduce',
     messContent:{},
     contactContent:{}
 }
@@ -8,11 +10,28 @@ const initState = {
 function reducer(state, actions){
     switch (actions.type){
         case NAV_MESS_MESS:
-            return {
+            return ({
+                ...state,
+                content:'mess',
+                messContent:actions.payload
+            })
+        case NAV_MESS:
+            return ({
                 ...state,
                 navSide:'mess',
-                messContent:actions.payload
-            }
+                content:'introduce'
+            })
+        case NAV_CON:
+            return ({
+                ...state,
+                navSide:'contact',
+                content:'contact'
+            })
+        case LOGIN:
+            return ({
+                ...state,
+                user: actions.payload
+            })
         default:
             console.log("not now")
     }

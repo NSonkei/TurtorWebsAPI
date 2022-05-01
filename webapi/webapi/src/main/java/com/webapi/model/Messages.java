@@ -14,7 +14,7 @@ public class Messages {
     private String type;
     private String content;
     private String fromUser;
-    private String toUser;
+    private String toCon;
     private Boolean isDelete;
     private state state;
     public enum state{

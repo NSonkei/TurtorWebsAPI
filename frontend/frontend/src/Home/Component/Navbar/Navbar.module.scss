@@ -1,0 +1,35 @@
+@import "../../../Global/SCSS/Variables.scss";
+$fillColor: rgb(10, 117, 232);
+
+.navContainer{
+    background-color: $colorPrimary;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    .avatar{
+        position: none;
+        top:12px;
+        @include centerX();
+    }
+}
+.avatarArea{
+    display: flex;
+    height: 100px;
+}
+.navIcons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    i{
+        padding: 14px;
+        margin-top: 4px;
+        font-size: 3.2rem;
+        &:hover{
+            cursor: pointer;
+            background-color: $fillColor;
+        }
+        &.fill{
+            background-color: $fillColor;
+        }
+    }
+}

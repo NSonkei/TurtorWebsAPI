@@ -1,12 +1,15 @@
 import './App.css';
-import {Fragment, useState} from 'react' 
+import {Routes, Route} from 'react-router-dom'
 import Login from './Login'
+import Register from './Register'
+import Home from './Home'
 function App() {
-  const [isLogging,setIsLogging] = useState(false)
   return (
-    <Fragment>
-        {!isLogging && <Login setIsLogging={setIsLogging}></Login>}
-    </Fragment>
+    <Routes>
+      <Route path="/" element={<Login></Login>}></Route>
+      <Route path="/register" element={<Register></Register>}></Route>
+      <Route path="/home" element={<Home/>}></Route>
+    </Routes>       
   )
 }
 

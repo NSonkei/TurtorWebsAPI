@@ -1,25 +1,30 @@
 import styles from "./Login.module.scss"
 import clsx from "clsx"
-import {useState } from "react"
-import {postLogin,getUser} from "../Global/API"
-function Login({setIsLogging}){
+import {useEffect, useState } from "react"
+import {postLogin} from "../Global/API"
+import { Link } from "react-router-dom"
+import {useNav,actionsNav} from "../Global/State/Nav"
+function Login(){
     //State
     const [username,setUsername] = useState('')
     const [password,setPassword] = useState('')
-    const [token,setToken] = useState({})
-    const [data,setData] = useState({})
+    const [rep,setRep] = useState('')
+    const [state,dispatch] = useNav()
     //Classes
     const classesContainer = clsx(styles.container)
     const classesInputArea = clsx(styles.inputArea)
     const classesInput = clsx(styles.input)
     const classesButtonArea = clsx(styles.buttonArea)
+    useEffect(()=>{
+        if (rep) {
+            window.location.replace("http://localhost:3000/home")
+        }
+    },[rep])
     //Function
     function loginHandle(){
-        postLogin(setToken,username,password)
-        if (token.accessToken) {
-            localStorage.setItem('token',token.accessToken)
-            setIsLogging(true)
-        }
+        postLogin(username,password).then(rp =>  {
+            setRep(prev => rp)
+        }).catch(err => new Error(err))
     }
     return (
         <div>
@@ -36,7 +41,7 @@ function Login({setIsLogging}){
                     </div>
                     <div className={classesButtonArea}>
                         <button className="btn btnBlue" onClick={()=>loginHandle()}>Login</button>
-                        <a href="/register">Don't have account ? Register</a>
+                        <Link to="/register">Don't have account ? Register</Link>
                     </div>
                 </div>
             </div>

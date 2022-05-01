@@ -1,0 +1,46 @@
+@import "../../../../Global/SCSS/Variables.scss";
+$leftContent: 64px;
+.conversations{
+    display: grid;
+    height: 100vh;
+    grid-template-columns: auto;
+    grid-template-rows: 54px auto;
+    .header{
+        border-bottom: 4px solid #ccc;
+    }
+    .body{
+        .miniConver{
+            overflow: hidden;
+            margin: 4px;
+            height: 64px;
+            border: 1px solid #ccc;
+            position: relative;
+            border-radius: 10px;
+            margin-top: 10px;
+            &:hover{
+                background-color: #ccc;
+                cursor: pointer;
+            }
+            .avatar{
+                @include centerY();
+                left: 4px;
+            }
+            h2{
+                position: absolute;
+                left: $leftContent;
+                top: 4px;
+            }
+            p{
+                font-size: 1.2rem;
+                position: absolute;
+                opacity: 0.8;
+                left: $leftContent;
+                top: 30px;
+            }
+        }
+    }
+}
+
+.fill {
+    background-color: #ccc;
+}

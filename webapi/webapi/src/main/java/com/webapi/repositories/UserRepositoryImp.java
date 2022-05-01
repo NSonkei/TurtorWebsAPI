@@ -1,11 +1,13 @@
 package com.webapi.repositories;
 
+import com.webapi.model.Account;
 import com.webapi.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,6 +16,12 @@ import java.util.List;
 public class UserRepositoryImp implements UserRepository{
     @Autowired
     MongoTemplate mongoTemplate;
+
+    @Autowired
+    AccountRepository accountRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     public List<String> deleteRequest(User user,String request){
         List<String> requestList = user.getRequestFriend();
@@ -31,6 +39,21 @@ public class UserRepositoryImp implements UserRepository{
         Query query = new Query(Criteria.where("userId").is(id));
         User users = mongoTemplate.findOne(query,User.class);
         return users;
+    }
+
+    @Override
+    public String addUser(User user, String password) {
+        try{
+            mongoTemplate.save(user);
+            Account account = new Account();
+            account.setRole("ROLE_USER");
+            account.setAccountId(user.getUserId());
+            account.setPassword(passwordEncoder.encode(password));
+            return "ok";
+        } catch (Exception ex){
+            System.out.println(ex);
+            return "not ok";
+        }
     }
 
     @Override

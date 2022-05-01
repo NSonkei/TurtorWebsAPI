@@ -1,0 +1,161 @@
+@import "../../../Global/SCSS/Variables.scss";
+
+.contentContainer{
+    background-color: $colorSecond;
+    border-left: 4px solid $colorBorder;
+}
+
+.headerContent{
+    background-color: $colorPrimary;
+    height: 80px;
+    border-bottom-right-radius: 40px;
+    border-bottom-left-radius: 40px;
+    position: relative;
+    .avatar{
+        @include centerY();
+        left: 20px;
+    }
+    h2{
+        position: absolute;
+        left: 90px;
+        @include centerY();
+        font-size: 2.4rem;
+    }
+}
+
+.contentMessContainer{
+    display: grid;
+    grid-template-columns: 800px auto;
+}
+
+.messages{
+    display: grid;
+    grid-template-rows: 80px auto;
+}
+
+.bodyContent{
+    background-color: $colorPrimary;
+    border-top-right-radius: 40px;
+    border-top-left-radius: 40px;
+    height: 89.7vh;
+    display: grid;
+    grid-template-rows: 76vh auto;  
+    .messBox{
+        border-radius: inherit;
+        display: flex;
+        flex-direction: column-reverse;
+        border-bottom: 4px solid #ccc;
+        overflow-y: scroll;
+    }
+    .chatBox{
+        position: relative;
+        input{
+            position: absolute;
+            box-sizing: border-box;
+            left: 4px;
+            width: 89%;
+            height: 60px;
+            font-size: 1.8rem;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            text-align: right;
+            padding: 12px;
+            @include centerY();
+            &:focus-visible{
+                //outline: none;
+                outline-color: rgb(180, 175, 175);
+            }
+        }
+        button{
+            position: absolute;
+            right: 8px ;
+            padding: 16px;
+            @include centerY();
+        }
+    }
+}
+
+.chatLine{
+    display: flex;
+    position: relative;
+    margin: 12px;
+    width: auto;
+    height: auto;
+    min-height: 40px;
+    flex-direction: column;
+    &.end{
+        align-items: flex-end;
+    }
+    &.start{
+        align-items: flex-start;
+    }
+    .chatContent{
+        font-size: 1.6rem;
+        padding: 12px;
+        max-width: 300px;
+        word-wrap: break-word;
+        border-radius: 20px;
+        height: auto;
+        display: inherit;
+        &proactive{
+            background-color: blue;
+            color: aliceblue;
+           
+        }
+        &passive{
+            background-color: rgb(236, 232, 232)
+        }
+        
+    }
+}
+
+.info{
+    height: 100vh;
+    background-color: $colorPrimary;
+    border-left: 4px solid #ccc; 
+}
+
+.headerInfo{
+    background-color: $colorPrimary;
+    height: 80px;
+    border-bottom-right-radius: 40px;
+    border-bottom-left-radius: 40px;
+    position: relative;
+    border-bottom: 4px solid #ccc;
+    .avatar{
+        @include centerY();
+        left: 40px;
+    }
+    h2{
+        position: absolute;
+        left: 90px;
+        @include centerXY();
+        font-size: 2.4rem;
+    }
+}
+
+.bodyInfo{
+    margin: 16px 12px 0;
+    display: flex;
+    flex-direction: column;
+    .buttonModal{
+        border-radius: 10px;
+        padding: 8px;
+        margin-top: 4px;
+        &:hover{
+            background-color: #ccc;
+            cursor: pointer;
+        }
+        i{
+            margin-left: 12px;
+            font-size: 2.4rem;
+        }
+        span{
+            margin-left: 12px;
+            font-size: 1.8rem;
+            &.red{
+                color: rgb(196, 27, 27);
+            }
+        }
+    }
+}

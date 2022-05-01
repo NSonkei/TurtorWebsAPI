@@ -1,7 +1,6 @@
 package com.webapi;
 
 import com.webapi.model.Account;
-import com.webapi.model.Conversations;
 import com.webapi.repositories.AccountRepository;
 import com.webapi.repositories.ConversationsRepository;
 import com.webapi.repositories.UserRepository;
@@ -11,7 +10,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.List;
 
 @SpringBootApplication
 public class WebapiApplication implements CommandLineRunner {

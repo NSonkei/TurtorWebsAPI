@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface UserRepository{
     public User findbyId(String id);
+    public String addUser(User user,String password);
     public Boolean addFriendRequest(String userId, String requester);
     public Boolean addFriend(String userId,String friend);
     public Boolean refuseRequest(String userId,String request);

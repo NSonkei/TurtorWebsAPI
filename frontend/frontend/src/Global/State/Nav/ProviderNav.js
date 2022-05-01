@@ -1,4 +1,4 @@
-import { useContext, useReducer } from "react";
+import { useReducer } from "react";
 import NavContext from "./Context";
 import reducer, { initState } from "./Reducer";
 

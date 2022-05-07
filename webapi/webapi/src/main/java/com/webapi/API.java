@@ -155,6 +155,12 @@ public class API {
         conversationsRepository.updateGroupNameConversation(idCon,groupName.get("groupName").toString());
         return ResponseEntity.ok().body("Update Complete");
     }
+    @PatchMapping("/conversation/add/participateToGroup/{idCon}")
+    public ResponseEntity addParticipateToGroup(@RequestBody Map listParticipate,@PathVariable(name="idCon") String idCon){
+        List<String> addParticipateList = (List<String>) listParticipate.get("user");
+        conversationsRepository.addParticipateToGroup(addParticipateList,idCon);
+        return ResponseEntity.ok().body("Update Complete");
+    }
     //Messeges
     @GetMapping("/mess/{messId}")
     public Messages getMessById(@PathVariable(name="messId") String messId){

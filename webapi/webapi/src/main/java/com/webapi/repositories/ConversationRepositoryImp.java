@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -62,6 +63,7 @@ public class ConversationRepositoryImp implements ConversationsRepository{
         Update update = new Update();
         Conversations conversation = findOnebyId(conId);
         List<String> listDelete = conversation.getIsDelete();
+        if (listDelete == null) listDelete = new ArrayList<String>();
         System.out.println(listDelete.add(userid));
         update.set("isDelete",listDelete);
         mongoTemplate.findAndModify(query,update,Conversations.class);
@@ -75,6 +77,27 @@ public class ConversationRepositoryImp implements ConversationsRepository{
         update.set("groupName",groupName);
         mongoTemplate.findAndModify(query,update,Conversations.class);
         return false;
+    }
+
+    @Override
+    public Boolean addParticipateToGroup(List<String> listParticipate, String conId) {
+        Query query = new Query(Criteria.where("idConver").is(conId));
+        Conversations con = findOnebyId(conId);
+        List<String> userInCon = con.getUserInCon();
+        userInCon.addAll(listParticipate);
+        Update update = new Update();
+        update.set("userInCon",userInCon);
+        update.set("numberParticipate",userInCon.size());
+        System.out.println(userInCon);
+        try{
+            mongoTemplate.findAndModify(query,update,Conversations.class);
+            return true;
+        } catch (Exception ex) {
+            System.out.println("Error from conversation " + ex);
+            return false;
+        }
+
+
     }
 
 

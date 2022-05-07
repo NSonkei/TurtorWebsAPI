@@ -10,6 +10,7 @@
     height: 80px;
     border-bottom-right-radius: 40px;
     border-bottom-left-radius: 40px;
+    border-bottom: 4px solid #ccc;
     position: relative;
     .avatar{
         @include centerY();

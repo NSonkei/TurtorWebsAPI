@@ -1,10 +1,12 @@
-import {LOGIN, NAV_MESS_MESS, NAV_CON, NAV_MESS} from './contants'
+import {LOGIN, NAV_MESS_MESS, NAV_CON, NAV_MESS, NAV_INTRO, ADD_RERENDER_SIDEBAR, GET_CONTACT} from './contants'
 const initState = {
     user:{},
     navSide:'mess',
+    reRenderSidebar:()=>{},
     content:'introduce',
     messContent:{},
-    contactContent:{}
+    contactContent:{},
+    contact:[]
 }
 
 function reducer(state, actions){
@@ -31,6 +33,22 @@ function reducer(state, actions){
             return ({
                 ...state,
                 user: actions.payload
+            })
+        case NAV_INTRO:
+            return ({
+                ...state,
+                content:'introduce',
+                messContent:{}
+            })
+        case ADD_RERENDER_SIDEBAR:
+            return ({
+                ...state,
+                reRenderSidebar: actions.payload
+            })
+        case GET_CONTACT:
+            return ({
+                ...state,
+                contact: actions.payload
             })
         default:
             console.log("not now")

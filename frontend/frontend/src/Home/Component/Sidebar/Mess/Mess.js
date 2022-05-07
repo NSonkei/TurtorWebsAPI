@@ -1,21 +1,24 @@
 import clsx from "clsx"
 import styles from "./Mess.module.scss"
-import {getAllConversationByUsername, getInfoUser} from "../../../../Global/API"
-import { useEffect, useState } from "react"
+import {actionsNav,useNav} from "../../../../Global/State/Nav"
+import {getAllConversationByUsername} from "../../../../Global/API"
+import { useLayoutEffect, useState } from "react"
 import MiniConver from "./MiniConver/MiniConver"
 function Mess({infoUser}){
     //State
     const [conversation,setConversation] = useState([])
     const [highlight,setHighlight] = useState()
-
+    const [reRenderSidebar,setReRenderSidebar] = useState(Math.floor(Math.random() * 11))
+    const [navState,navDispatch] = useNav()
     //Classes
     const conversationsClasses = clsx(styles.conversations)
     const headerClasses = clsx(styles.header)
     const bodyClasses = clsx(styles.body)
     //useEffect get API
-    useEffect(()=>{
+    useLayoutEffect(()=>{
+        navDispatch(actionsNav.addReRenderSidebar(setReRenderSidebar))
         getAllConversationByUsername(infoUser.userId).then(data => setConversation(data))
-    },[infoUser.userId])
+    },[reRenderSidebar])
     //function
     function clickMiniconHandle(index){
         setHighlight(index)

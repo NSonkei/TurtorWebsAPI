@@ -45,11 +45,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         http
                 .csrf().disable()
-                .cors()
-                .and()
+                .cors().disable();
+             /**   .and()
                 .authorizeRequests()
-                .antMatchers("/api/login","/api/register").permitAll()
-                .anyRequest().authenticated();
+                .antMatchers("/api/login","/api/register","/topic","/chat.addUser","/app","/chat.sendMessages").permitAll()
+                .antMatchers("/ws*","/ws/*").permitAll()
+                .anyRequest().authenticated(); **/
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }

@@ -100,7 +100,8 @@ public class API {
     @GetMapping("/user/{userid}")
     public User getOne(@PathVariable(name = "userid") String userId){
         User user = userRepository.findbyId(userId);
-        return user;
+        if (user != null) return user;
+        else return new User();
     }
     @PatchMapping("/user/addFriendRequest/{userid}")
     public ResponseEntity addFriendRequest(@RequestBody Map requester,@PathVariable(name="userid") String userid){
@@ -110,6 +111,7 @@ public class API {
     @PatchMapping("/user/addFriend/{userId}")
     public ResponseEntity addFriend(@RequestBody Map friend,@PathVariable(name="userId") String userid){
         userRepository.addFriend(userid,friend.get("friend").toString());
+        userRepository.addFriend(friend.get("friend").toString(),userid);
         return ResponseEntity.ok().body("Add Friend Success");
     }
     @PatchMapping("/user/refuseRequest/{userId}")
@@ -120,6 +122,7 @@ public class API {
     @PatchMapping("/user/deleteFriend/{userId}")
     public ResponseEntity deleteFriend(@RequestBody Map friend,@PathVariable(name="userId") String userid){
         userRepository.deleteFriend(userid,friend.get("friend").toString());
+        userRepository.deleteFriend(friend.get("friend").toString(),userid);
         return ResponseEntity.ok().body("Delete success");
     }
     @PatchMapping("/user/beRefuse/{userId}")
@@ -160,6 +163,12 @@ public class API {
         List<String> addParticipateList = (List<String>) listParticipate.get("user");
         conversationsRepository.addParticipateToGroup(addParticipateList,idCon);
         return ResponseEntity.ok().body("Update Complete");
+    }
+    @PutMapping("/conversation/create")
+    public ResponseEntity createConver(@RequestBody Map listParticipate){
+        List<String> listParticipateS = (List<String>) listParticipate.get("user");
+        conversationsRepository.createCon(listParticipateS);
+        return ResponseEntity.ok().body("Create complete");
     }
     //Messeges
     @GetMapping("/mess/{messId}")

@@ -1,0 +1,58 @@
+@import "../../../../Global/SCSS/Variables.scss";
+
+.contactContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    .body{
+        height: 95%;
+        display: flex;
+        flex-direction: column;
+    }
+    .footer{
+        height: 5%;
+        border-top: 4px solid #ccc;
+        i{
+            position: relative;
+            margin-left: 15px;
+            font-size: 2.4rem;
+            &:hover{
+                cursor: pointer;
+                opacity: 0.8;
+            }
+            span{
+                position: absolute;
+                color: red;
+                font-size: 1.6rem;
+                top: 0;
+                font-weight: 700;
+            }
+        }
+    }
+}
+
+
+.person{
+    width: 100%;
+    height: 80px;
+    position: relative;
+    &:hover{
+        cursor: pointer;
+        background-color: #ccc;
+    }
+    img{
+        position: absolute;
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        @include centerY();
+        left: 10px;
+    }
+    h2{
+        position: absolute;
+        @include centerY();
+        left: 100px;
+        font-size: 2.0rem;
+    }
+}

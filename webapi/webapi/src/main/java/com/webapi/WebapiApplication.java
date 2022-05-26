@@ -35,7 +35,7 @@ public class WebapiApplication implements CommandLineRunner {
 
 	public void test(){
 		Account account = new Account();
-		account.setAccountId("0817415963");
+		account.setAccountId("0817415960");
 		account.setPassword(passwordEncoder.encode("123456"));
 		accountRepository.save(account);
 		System.out.println(account);

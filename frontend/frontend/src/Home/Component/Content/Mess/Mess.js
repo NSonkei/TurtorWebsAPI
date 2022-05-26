@@ -1,10 +1,12 @@
 import styles from "../Content.module.scss"
 import clsx from "clsx"
-import { Fragment, useEffect, useState } from "react"
+import { Fragment, useEffect, useRef, useState } from "react"
 import {actionsNav,useNav} from "../../../../Global/State/Nav"
 import {deleteConver} from "../../../../Global/API"
-import {Confirm,AddModal,Participater} from "../../../../Global/Modal"
+import {Confirm, AddModal, Participater, GroupName} from "../../../../Global/Modal"
 import ChatLine from "./ChatLine/ChatLine"
+import Stomp from "stompjs"
+import SockJS from "sockjs-client"
 function Mess(){
     //useNav
     const [navState,dispatchNav] = useNav()
@@ -14,6 +16,10 @@ function Mess(){
     const [showAddModal,setShowAddModal] = useState(false)
     const [showParticipaterModal, setShowParticipaterModal] = useState(false)
     const [showChangeGroupNameModal, setshowChangeGroupNameModal] = useState(false)
+    const [contentMess, setContentMess] = useState('')
+    const [stompClient,setStompClient] = useState()
+    //useRef
+    const messBox = useRef()
     //Classes
     const headerContentClasses = clsx(styles.headerContent)
     const avatarClasses = clsx(styles.avatar,'avatar')
@@ -32,7 +38,15 @@ function Mess(){
         setConver(navState.messContent.conver)
         const inp = document.getElementById("ipChat")
         inp.value = ""
+        //socket
+        var socket = new SockJS("http://localhost:8080/ws")
+        setStompClient(()=>{
+            var stompClient = Stomp.over(socket)
+            stompClient.connect({},()=>onConnected(stompClient),onError)
+            return stompClient
+        })
     },[navState.messContent])
+
     //function
     function deleteConversation(){
         deleteConver(conver.idConver,localStorage.getItem('user'))
@@ -44,6 +58,53 @@ function Mess(){
             else return prev + 2
         })
     }
+    //Socket
+
+    function onConnected(stompClient) {
+        // Subscribe to the Public Topic
+        
+        stompClient.subscribe(`/topic/conver/`, onMessageReceived);
+
+        // Tell your username to the server
+        stompClient.send("/app/chat.addUser",
+            {},
+            JSON.stringify({fromUser: localStorage.getItem('user'), state: 'JOIN'})
+        )   
+      }
+      
+      
+    function onError(error) {
+      }
+
+    function onMessageReceived(payload) {
+        var message = JSON.parse(payload.body);
+        console.log(message)
+        if(message.state === 'JOIN') {
+           console.log("vao")
+        } else if (message.state === 'LEAVE') {
+           console.log("ra")
+        } else {
+            window.alert("mess in")
+        }
+    }      
+
+    function sendMess(event, messInput){
+        var messageContent = contentMess
+        if(messageContent && stompClient) {
+            var chatMessage = {
+                fromUser: localStorage.getItem('user'),
+                content: messageContent,
+                type: 'text',
+                toCon: conver.idConver,
+                state: 'CHAT'
+            };
+            var mess = stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+            
+        }
+        messInput.current.value = ""
+        event.preventDefault();
+    }
+
     return (
         <Fragment>
             <div className={contentMessContainerClasses}>
@@ -57,8 +118,8 @@ function Mess(){
                             {(conver.messages) ? conver.messages.map((mess,index) => <ChatLine key={index} mess={mess} order={conver.messages.length-index}></ChatLine>) : <div></div>}
                         </div>
                         <div className={chatBoxClasses}> 
-                            <input id="ipChat" type="text"></input>
-                            <button className="btn"> Send </button>
+                            <input ref={messBox} id="ipChat" type="text" autocomplete="off" onChange={(ev)=>setContentMess(ev.target.value)}></input>
+                            <button className="btn" onClick={(ev)=>sendMess(ev, messBox)}> Send </button>
                         </div>
                     </div>
                 </div>
@@ -110,6 +171,12 @@ function Mess(){
                                         conver = {conver}
                                         contact = {navState.contact}>
                                         </Participater>}
+            {showChangeGroupNameModal && <GroupName
+                                    header={"Change group name"} 
+                                    content={"Oh, let's choose the name for your group "} 
+                                    color = {"rgb(0,0,0)"}
+                                    conver = {conver}
+                                    setOpen={setshowChangeGroupNameModal}></GroupName>}
         </Fragment>
     )
 }

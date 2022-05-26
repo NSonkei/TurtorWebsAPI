@@ -96,8 +96,29 @@ public class ConversationRepositoryImp implements ConversationsRepository{
             System.out.println("Error from conversation " + ex);
             return false;
         }
+    }
 
+    @Override
+    public Boolean addMessToCon(String conId, String messId) {
+        Query query = new Query(Criteria.where("idConver").is(conId));
+        Conversations con = findOnebyId(conId);
+        List<String> mess = con.getMessages();
+        mess.add(messId);
+        Update update = new Update();
+        update.set("messages",mess);
+        mongoTemplate.findAndModify(query,update,Conversations.class);
+        return true;
+    }
 
+    @Override
+    public Boolean createCon(List<String> listParticipate) {
+        Conversations con = new Conversations();
+        List<String> mess = new ArrayList<String>();
+        mess.add("create new con");
+        con.setUserInCon(listParticipate);
+        con.setNumberParticipate(2);
+        con.setMessages(mess);
+        return save(con);
     }
 
 

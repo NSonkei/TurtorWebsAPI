@@ -9,6 +9,10 @@ $leftContent: 64px;
         border-bottom: 4px solid #ccc;
     }
     .body{
+        overflow-y: hidden;
+        &:hover{
+            overflow-y: scroll;
+        }
         .miniConver{
             overflow: hidden;
             margin: 4px;

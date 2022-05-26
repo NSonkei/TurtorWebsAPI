@@ -1,4 +1,4 @@
-import {LOGIN, NAV_MESS_MESS, NAV_CON, NAV_MESS, NAV_INTRO, ADD_RERENDER_SIDEBAR, GET_CONTACT} from './contants'
+import {LOGIN, NAV_MESS_MESS, NAV_CON, NAV_MESS, NAV_INTRO, ADD_RERENDER_SIDEBAR, GET_CONTACT, SAVE_STOMP, DELETE_CONTACT} from './contants'
 const initState = {
     user:{},
     navSide:'mess',
@@ -6,7 +6,8 @@ const initState = {
     content:'introduce',
     messContent:{},
     contactContent:{},
-    contact:[]
+    contact:[],
+    stompClient:{}
 }
 
 function reducer(state, actions){
@@ -49,6 +50,17 @@ function reducer(state, actions){
             return ({
                 ...state,
                 contact: actions.payload
+            })
+        case SAVE_STOMP:
+            return ({
+                ...state,
+                stompClient:actions.payload
+            })
+        case DELETE_CONTACT:
+            const contact = state.contact.filter((value)=> value.userId!==actions.payload)
+            return ({
+                ...state,
+                contact:contact
             })
         default:
             console.log("not now")

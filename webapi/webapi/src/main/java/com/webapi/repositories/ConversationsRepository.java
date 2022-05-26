@@ -17,4 +17,6 @@ public interface ConversationsRepository{
     public Boolean deleteConversation(String conId,String userid);
     public Boolean updateGroupNameConversation(String conId, String GroupName);
     public Boolean addParticipateToGroup(List<String> listParticipate, String conId);
+    public Boolean addMessToCon(String conId, String messId);
+    public Boolean createCon(List<String> listParticipate);
 }

@@ -1,14 +1,17 @@
 const address = "http://localhost:8080"
-export async function postLogin(username,password){
-    const body = {username,password}
-    localStorage.clear()
-    await fetch(`${address}/api/login`,{
-        method:'POST',
+function getAPI(method, body, path){
+    return fetch(`${address}/${path}`,{
+        method:method,
         headers:{
             'Content-Type':'application/json'
         },
         body:JSON.stringify(body)
-    }).then(rp=>rp.json())
+    })
+}
+export async function postLogin(username,password){
+    const body = {username,password}
+    localStorage.clear()
+    await getAPI("POST",body,"api/login").then(rp=>rp.json())
     .then(data => {
         localStorage.setItem('token',data.accessToken)
         localStorage.setItem('user',username)

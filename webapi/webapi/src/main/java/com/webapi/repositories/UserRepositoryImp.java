@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -44,11 +45,22 @@ public class UserRepositoryImp implements UserRepository{
     @Override
     public String addUser(User user, String password) {
         try{
-            mongoTemplate.save(user);
+            User newUser = new User();
+            newUser.setUserId(user.getUserId());
+            newUser.setAvatar(user.getAvatar());
+            newUser.setEmail(user.getEmail());
+            newUser.setFirstName(user.getFirstName());
+            newUser.setLastName(user.getLastName());
+            newUser.setBeFriend(new ArrayList<String>());
+            newUser.setHintFriend(new ArrayList<String>());
+            newUser.setRequestFriend(new ArrayList<String>());
+            newUser.setRefuseBy(new ArrayList<String>());
+            mongoTemplate.save(newUser);
             Account account = new Account();
             account.setRole("ROLE_USER");
             account.setAccountId(user.getUserId());
             account.setPassword(passwordEncoder.encode(password));
+            accountRepository.save(account);
             return "ok";
         } catch (Exception ex){
             System.out.println(ex);
@@ -146,9 +158,21 @@ public class UserRepositoryImp implements UserRepository{
                         break;
                     }
                 }
-                if (ok) hintFriend.add(j);
+                if (ok) {
+                    User person = findbyId(j);
+                    Boolean ok2 = true;
+                    for (String z : person.getRequestFriend()){
+                        if (z.equals(userId)){
+                            ok2=false;
+                            break;
+                        }
+                    }
+                    if (ok2) hintFriend.add(j);
+                }
             }
         }
+        if (hintFriend == null) return new ArrayList<String>();
+        else
         return hintFriend;
     }
 

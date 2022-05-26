@@ -1,7 +1,8 @@
 import clsx from "clsx"
 import styles from "./Sidebar.module.scss"
 import Mess from "./Mess/Mess"
-import { getAllContact } from "../../../Global/API"
+import Contact from "./Contact"
+import {getAllContact } from "../../../Global/API"
 import {actionsNav,useNav} from "../../../Global/State/Nav"
 import { useEffect } from "react"
 function Sidebar({infoUser}){
@@ -12,7 +13,7 @@ function Sidebar({infoUser}){
     },[])
     return (
         <div className={sidebarContainerClasses}>
-            {navState.navSide === 'mess' ? <Mess infoUser={infoUser}></Mess>: <div>ContactSideBar</div>}
+            {navState.navSide === 'mess' ? <Mess infoUser={infoUser}></Mess>: <Contact></Contact>}
         </div>
     )
 }

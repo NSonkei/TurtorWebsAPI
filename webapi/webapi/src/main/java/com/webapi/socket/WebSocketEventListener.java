@@ -29,7 +29,6 @@ public class WebSocketEventListener {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
 
         String username = (String) headerAccessor.getSessionAttributes().get("username");
-
         if (username != null){
             logger.info("User disconnect " + username );
 
@@ -37,7 +36,7 @@ public class WebSocketEventListener {
             message.setState(Messages.state.LEAVE);
             message.setFromUser(username);
 
-            messagingTemplate.convertAndSend("/topic/public",message);
+            messagingTemplate.convertAndSend("/topic/conver/",message);
         }
     }
 

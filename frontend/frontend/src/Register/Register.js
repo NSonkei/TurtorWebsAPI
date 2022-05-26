@@ -32,7 +32,18 @@ function Register(){
     }
     function registerHandle(){
         if (check()){
-            addUser(info)
+            const api = new FormData
+            api.append('file',info.fileAvatar)
+            api.append('upload_preset','sjhbyhxr')
+            fetch("https://api.cloudinary.com/v1_1/dl13qibav/image/upload",{
+                method:"POST",
+                body:api
+            }).then(rp => rp.json())
+            .then(data => {
+                addUser({...info,avatar:data.url})
+                window.location.reload()
+            })
+            
         }
     }
 
@@ -42,7 +53,9 @@ function Register(){
             prev.avatar && URL.revokeObjectURL(prev)
             return ({
                 ...prev,
-                avatar: URL.createObjectURL(file)})
+                avatar: URL.createObjectURL(file),
+                fileAvatar:file})
+                
         })
     }
     return (

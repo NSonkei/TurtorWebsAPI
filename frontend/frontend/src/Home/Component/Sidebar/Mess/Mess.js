@@ -2,7 +2,7 @@ import clsx from "clsx"
 import styles from "./Mess.module.scss"
 import {actionsNav,useNav} from "../../../../Global/State/Nav"
 import {getAllConversationByUsername} from "../../../../Global/API"
-import { useLayoutEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import MiniConver from "./MiniConver/MiniConver"
 function Mess({infoUser}){
     //State
@@ -15,7 +15,7 @@ function Mess({infoUser}){
     const headerClasses = clsx(styles.header)
     const bodyClasses = clsx(styles.body)
     //useEffect get API
-    useLayoutEffect(()=>{
+    useEffect(()=>{
         navDispatch(actionsNav.addReRenderSidebar(setReRenderSidebar))
         getAllConversationByUsername(infoUser.userId).then(data => setConversation(data))
     },[reRenderSidebar])

@@ -1,9 +1,21 @@
 import clsx from "clsx"
 import styles from "./Modal.module.scss"
-function ChangeGroupName({header,content,color,setOpen,action}){
+import {changeGroupName} from "../API"
+import { useState } from "react"
+function GroupName({header,content,color,setOpen,conver}){
+    //State
+    const [name,setName] = useState('')
     //function
+    function changeName(){
+        console.log(conver.idConver)
+        if (name.trim()!='') {
+            changeGroupName(conver.idConver,name)
+            window.location.reload()
+        }
+        setOpen(false)
+    }
     //Classes
-    const modalClasses = clsx(styles.modalConfirm)
+    const modalClasses = clsx(styles.modalChangeGroupName)
     const modalBoxClasses = clsx(styles.modalBox)
     const modalHeaderClasses = clsx(styles.modalHeader)
     const modalBodyClasses = clsx(styles.modalBody)
@@ -17,8 +29,9 @@ function ChangeGroupName({header,content,color,setOpen,action}){
                 </div>
                 <div className={modalBodyClasses}>
                     <span>{content}</span>
+                    <input type="text" onChange={ev=>setName(ev.target.value)}></input>
                     <div className={buttonGroupClasses}>
-                        <button className={clsx(styles.btn,styles.yes)} onClick={()=>action()}>Yes</button>
+                        <button className={clsx(styles.btn,styles.yes)} onClick={()=>{changeName()}} >Yes</button>
                         <button className={styles.btn} onClick={()=>{setOpen(false)}}>No</button>
                     </div>
                 </div>
@@ -27,4 +40,4 @@ function ChangeGroupName({header,content,color,setOpen,action}){
     )
 }
 
-export default ChangeGroupName
+export default GroupName

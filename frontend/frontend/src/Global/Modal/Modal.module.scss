@@ -1,5 +1,6 @@
 @import "../../Global/SCSS/Variables.scss";
 $modalBackground: rgba(0, 0, 0, 0.347) ;
+$hoverColor: rgb(229, 221, 221);
 @mixin templateModalBackground{
     position: fixed;
     top: 0;
@@ -47,6 +48,75 @@ $modalBackground: rgba(0, 0, 0, 0.347) ;
         .modalBody{
             height: 75%;
             position: relative;
+            .contentSearch{
+                margin-left: 10px;
+                margin-top: 10px;
+                font-size: 1.8rem;
+                opacity: 0.6;
+            }
+            .resultSearch{
+                position: relative;
+                margin: 8px;
+                border-radius: 8px;
+                display: flex;
+                flex-direction: row;
+                &:hover{
+                    background-color: $hoverColor;
+                    cursor: pointer;
+                }
+                img{
+                    height: 50px;
+                    width: 50px;
+                    border-radius: 50%;
+                }
+                h2{
+                    position: absolute;
+                    left: 60px;
+                    font-size: 1.8rem;
+                    @include centerY();
+                }
+                button{
+                    position: absolute;
+                    right: 12px;
+                    width: 110px;
+                    padding: 10px 0;
+                    border-radius: 12px;
+                    border: 1px solid #ccc;
+                    @include centerY();
+                    &.btnSend{
+                        &:hover{
+                            cursor: pointer;
+                            opacity: 0.8;
+                        }
+                    }
+                    &.btnSended{
+                        background-color: #ccc;
+                    }
+                }
+            }
+            .inputBox{
+                display: flex;
+                flex-direction: row;
+                input{
+                    margin: 8px 8px;
+                    width: 60%;
+                    padding: 8px;
+                    border-radius: 8px;
+                    border: 1px solid #ccc;
+                }
+                button{
+                    margin: 8px 18px;
+                    width: 60px;
+                    height: 30px;
+                    border-radius: 8px;
+                    border: 1px solid #ccc;
+                    z-index: 12;
+                    &:hover{
+                        cursor: pointer;
+                        opacity: 0.8;
+                    }
+                }
+            }
             span{
                 display: block;
                 margin-left: 12px;
@@ -152,6 +222,31 @@ $modalBackground: rgba(0, 0, 0, 0.347) ;
                     @include centerY();
                     left: 80px;
                 }
+                .buttonGroup{
+                    position: absolute;
+                    @include centerY();
+                    right: 20px;
+                    button{
+                        padding: 8px;
+                        background-color: blue;
+                        color: aliceblue;
+                        border-radius: 10px;
+                        border: 1px solid #ccc;
+                        &:hover{
+                            cursor: pointer;
+                            opacity: 0.8;
+                        }
+                    }
+                }
+                i{
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    font-size: 1.8rem;
+                    &:hover{
+                        opacity: 0.6;
+                    }
+                }
                 &:hover{
                     background-color: rgb(229, 221, 221);
                     cursor: pointer;
@@ -200,6 +295,141 @@ $modalBackground: rgba(0, 0, 0, 0.347) ;
     } to {
         width: 360px;
         height: 400px;
+        opacity: 1;
+    }
+    
+}
+
+.modalChangeGroupName{
+    @include templateModalBackground(); 
+    .modalBox{
+        @include centerXY();
+        position: fixed;
+        background-color: #ccc;
+        height: 210px;
+        width: 360px;
+        display: flex;
+        flex-direction: column;
+        border-radius: 20px;
+        animation: fadeInModalChangeGroupName 0.2s ease-in;
+        overflow: hidden;
+        .modalHeader{
+            height: 60px;
+            border-bottom: 2px solid black;
+            position: relative;
+            span{
+                display: block;
+                font-size: 2.4rem;
+                margin-left: 12px;
+                margin-top: 12px;
+            }
+            i{
+                font-size: 2.4rem;
+                position:absolute;
+                padding: 8px;
+                right: 0px;
+                top: 0px;
+                &:hover{
+                    opacity: 0.8;
+                    cursor: pointer;
+                }
+            }
+        }
+        .modalBody{
+            height: 75%;
+            position: relative;
+            input{
+                position: absolute;
+                @include centerX();
+                font-size: 1.6rem;
+                margin-top: 8px;
+                border-radius: 8px;
+                border: 1px solid #ccc;
+                padding: 4px;
+            }
+            span{
+                display: block;
+                margin-left: 12px;
+                margin-top: 12px;
+                font-size: 1.8rem;
+            }
+            .buttonGroup{
+                position: absolute;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                width: 60%;
+                bottom: 20px;
+                @include centerX();
+                .btn{
+                    padding: 8px 16px;
+                    border-radius: 10px;
+                    &:hover{
+                        cursor: pointer;
+                        opacity: 0.8;
+                    }
+                    &.yes{
+                        background-color: rgb(127 190 255);
+                        color:$colorFontOnPrimary;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes fadeInModalChangeGroupName {
+    from{
+        width: 0;
+        height: 0;
+        opacity: 0.5;
+    } to {
+        width: 360px;
+        height: 210px;
+        opacity: 1;
+    }
+    
+}
+
+.modalMenu{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    width: 100%;
+    height: 100%;
+    .menuContainer{
+        position: absolute;
+        background-color: aliceblue;
+        display: flex;
+        flex-direction: column;
+        width: 100px;
+        height: auto;
+        align-items: center;
+        animation: fadeInRightClickMenu 0.2s ease-in;
+        .item{
+            width: 100%;
+            text-align: center;
+            font-size: 1.6rem;
+            padding: 4px;
+            border-bottom: 1px solid #ccc;
+            &:hover{
+                cursor: pointer;
+                opacity: 0.8;
+            }
+            .delete{
+                color: red;
+            }
+        }
+    }
+}
+
+@keyframes fadeInRightClickMenu {
+    from{
+        width: 0;
+        opacity: 0.5;
+    } to {
+        width: 100px;
         opacity: 1;
     }
     

@@ -1,4 +1,4 @@
-import { LOGIN,NAV_MESS_MESS, NAV_MESS, NAV_CON, NAV_INTRO, ADD_RERENDER_SIDEBAR, GET_CONTACT } from "./contants";
+import { LOGIN,NAV_MESS_MESS, NAV_MESS, NAV_CON, NAV_INTRO, ADD_RERENDER_SIDEBAR, GET_CONTACT, SAVE_STOMP, DELETE_CONTACT } from "./contants";
 
 export const navMessMess = payload => ({
     type:NAV_MESS_MESS,
@@ -32,5 +32,15 @@ export const addReRenderSidebar = payload => ({
 
 export const getContact = payload => ({
     type: GET_CONTACT,
+    payload
+})
+
+export const saveStomp = payload => ({
+    type: SAVE_STOMP,
+    payload
+})
+
+export const deleteContact = payload => ({
+    type: DELETE_CONTACT,
     payload
 })

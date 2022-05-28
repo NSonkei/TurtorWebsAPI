@@ -41,6 +41,7 @@ function Register(){
             }).then(rp => rp.json())
             .then(data => {
                 addUser({...info,avatar:data.url})
+                window.alert("Register succesful!")
                 window.location.reload()
             })
             

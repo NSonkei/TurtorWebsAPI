@@ -1,0 +1,212 @@
+[{
+  "_id": "0817415963",
+  "firstName": "Nhan",
+  "lastName": "Tran Trong",
+  "address": "Ca Mau",
+  "avatar": "https://i1.sndcdn.com/avatars-Foub9ImTNzDTWhoQ-ewQixA-t500x500.jpg",
+  "email": "nhancm@gmail.com",
+  "beFriend": [
+    "0817415960",
+    "0817415964",
+    "0817415962",
+    "0811475369"
+  ],
+  "block": [],
+  "follow": [],
+  "followed": [],
+  "requestFriend": [],
+  "hintFriend": [],
+  "refuseBy": [
+    "0817415967"
+  ]
+},{
+  "_id": "0817415962",
+  "firstName": "Nhan 2",
+  "lastName": "Tran Trong",
+  "address": "Ca Mau",
+  "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSXtCbLZxNMEYFHPttLq5KzXRYoocTc69_OBPL0J7idnIEio9ql6qbFezJzZ5rh-5zL-Q&usqp=CAU",
+  "email": "nhancm2@gmail.com",
+  "beFriend": [
+    "0817415966",
+    "0817415967",
+    "0817415910"
+  ],
+  "block": [],
+  "follow": [],
+  "followed": [],
+  "requestFriend": [
+    "0811475369"
+  ],
+  "hintFriend": [],
+  "refuseBy": []
+},{
+  "_id": "0817415961",
+  "firstName": "Nhan 1",
+  "lastName": "Tran Trong",
+  "address": "Ca Mau",
+  "avatar": "https://img.thuthuatphanmem.vn/uploads/2018/10/06/anh-3d-anime-girl-ca-tinh_033448756.jpg",
+  "email": "nhancm1@gmail.com",
+  "beFriend": [
+    "0817415968"
+  ],
+  "block": [],
+  "follow": [],
+  "followed": [],
+  "requestFriend": [],
+  "hintFriend": [],
+  "refuseBy": []
+},{
+  "_id": "0817415960",
+  "firstName": "Nhan 0",
+  "lastName": "Tran Trong",
+  "address": "Ca Mau",
+  "avatar": "https://i.pinimg.com/474x/ed/4f/fd/ed4ffdcd11914e934d6033b662f501c0.jpg",
+  "email": "nhancm0@gmail.com",
+  "beFriend": [
+    "0817415963"
+  ],
+  "block": [],
+  "follow": [],
+  "followed": [],
+  "requestFriend": [],
+  "hintFriend": [],
+  "refuseBy": []
+},{
+  "_id": "0817415964",
+  "firstName": "Nhan 4",
+  "lastName": "Tran Trong",
+  "address": "Ca Mau",
+  "avatar": "https://dbk.vn/uploads/ckfinder/images/1-content/anime-girl-21.jpg",
+  "email": "nhancm4@gmail.com",
+  "beFriend": [],
+  "block": [],
+  "follow": [],
+  "followed": [],
+  "requestFriend": [],
+  "hintFriend": [],
+  "refuseBy": []
+},{
+  "_id": "0817415965",
+  "firstName": "Nhan 5",
+  "lastName": "Tran Trong",
+  "address": "Ca Mau",
+  "avatar": "https://play-lh.googleusercontent.com/uq327DX85XgA1uJSEKl5h3ws5l-MMPFwV26rH-V3grL3yDs9iRGEy2YRgeAgDYaj9ks",
+  "email": "nhancm5@gmail.com",
+  "beFriend": [
+    "0817415960"
+  ],
+  "block": [],
+  "follow": [],
+  "followed": [],
+  "requestFriend": [],
+  "hintFriend": [],
+  "refuseBy": []
+},{
+  "_id": "0817415966",
+  "firstName": "Nhan 6",
+  "lastName": "Tran Trong",
+  "address": "Ca Mau",
+  "avatar": "https://thuthuatnhanh.com/wp-content/uploads/2019/10/anh-anime-girl-de-thuong-trong-mua-dong-lanh-gia.jpg",
+  "email": "nhancm6@gmail.com",
+  "beFriend": [
+    "0817415960"
+  ],
+  "block": [],
+  "follow": [],
+  "followed": [],
+  "requestFriend": [],
+  "hintFriend": [],
+  "refuseBy": []
+},{
+  "_id": "0817415967",
+  "firstName": "Nhan 7",
+  "lastName": "Tran Trong",
+  "address": "Ca Mau",
+  "avatar": "https://pdp.edu.vn/wp-content/uploads/2021/06/hinh-anh-anime-girl-deo-kinh-thoi-trang-tri-thuc-dep-nhat.jpg",
+  "email": "nhancm7@gmail.com",
+  "beFriend": [
+    "0817415966"
+  ],
+  "block": [],
+  "follow": [],
+  "followed": [],
+  "requestFriend": [],
+  "hintFriend": [],
+  "refuseBy": [
+    "0817415963"
+  ]
+},{
+  "_id": "0817415968",
+  "firstName": "Nhan 8",
+  "lastName": "Tran Trong",
+  "address": "Ca Mau",
+  "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9CXpwWrRrBvqz3UvbQGNfEGkmPgHfxXuysQ&usqp=CAU",
+  "email": "nhancm8@gmail.com",
+  "beFriend": [
+    "0817415966"
+  ],
+  "block": [],
+  "follow": [],
+  "followed": [],
+  "requestFriend": [
+    "0817415963"
+  ],
+  "hintFriend": [],
+  "refuseBy": []
+},{
+  "_id": "0817415969",
+  "firstName": "Nhan 9",
+  "lastName": "Tran Trong",
+  "address": "Ca Mau",
+  "avatar": "https://i1.sndcdn.com/avatars-Foub9ImTNzDTWhoQ-ewQixA-t500x500.jpg",
+  "email": "nhancm9@gmail.com",
+  "beFriend": [
+    "0817415966"
+  ],
+  "block": [],
+  "follow": [],
+  "followed": [],
+  "requestFriend": [],
+  "hintFriend": [],
+  "refuseBy": []
+},{
+  "_id": "0817415910",
+  "firstName": "Nhan 10",
+  "lastName": "Tran Trong",
+  "address": "Ca Mau",
+  "avatar": "https://i.pinimg.com/originals/1e/14/3e/1e143e71253c9ba6a52e7d797be91e4b.png",
+  "email": "nhancm10@gmail.com",
+  "beFriend": [
+    "0817415966"
+  ],
+  "block": [],
+  "follow": [],
+  "followed": [],
+  "requestFriend": [],
+  "hintFriend": [],
+  "refuseBy": []
+},{
+  "_id": "1475369",
+  "firstName": "no",
+  "lastName": "name",
+  "avatar": "http://res.cloudinary.com/dl13qibav/image/upload/v1653538242/k3gdolkuifc5ahjmyalr.jpg",
+  "email": "no@ya.co",
+  "beFriend": [],
+  "requestFriend": [],
+  "refuseBy": [],
+  "hintFriend": [],
+  "_class": "com.webapi.model.User"
+},{
+  "_id": "0811475369",
+  "firstName": "Hen",
+  "lastName": "Tran",
+  "avatar": "http://res.cloudinary.com/dl13qibav/image/upload/v1653555089/hapmucp6jn5waoeq4dfj.jpg",
+  "email": "noname@gmail.com",
+  "beFriend": [
+    "0817415963"
+  ],
+  "requestFriend": [],
+  "refuseBy": [],
+  "hintFriend": [],
+  "_class": "com.webapi.model.User"
+}]

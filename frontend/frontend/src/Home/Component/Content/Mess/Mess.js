@@ -1,6 +1,6 @@
 import styles from "../Content.module.scss"
 import clsx from "clsx"
-import { Fragment, useEffect, useRef, useState } from "react"
+import { Fragment, useEffect, useMemo, useRef, useState } from "react"
 import {actionsNav,useNav} from "../../../../Global/State/Nav"
 import {deleteConver} from "../../../../Global/API"
 import {Confirm, AddModal, Participater, GroupName} from "../../../../Global/Modal"
@@ -18,6 +18,9 @@ function Mess(){
     const [showChangeGroupNameModal, setshowChangeGroupNameModal] = useState(false)
     const [contentMess, setContentMess] = useState('')
     const [stompClient,setStompClient] = useState()
+    const [messages, setMessages] = useState([])
+    const [order, setOrder] = useState(0)
+    const refMessBox = useRef()
     //useRef
     const messBox = useRef()
     //Classes
@@ -33,18 +36,21 @@ function Mess(){
     const bodyInfoClasses = clsx(styles.bodyInfo)
     const buttonModalClasses = clsx(styles.buttonModal)
     //Effect
-    useEffect(()=>{
-        setPartner(navState.messContent.infoPartner)
-        setConver(navState.messContent.conver)
-        const inp = document.getElementById("ipChat")
-        inp.value = ""
-        //socket
+    useMemo(()=>{
         var socket = new SockJS("http://localhost:8080/ws")
         setStompClient(()=>{
             var stompClient = Stomp.over(socket)
             stompClient.connect({},()=>onConnected(stompClient),onError)
             return stompClient
         })
+    },[])
+    useEffect(()=>{
+        setPartner(navState.messContent.infoPartner)
+        setConver(navState.messContent.conver)
+        setMessages(navState.messContent.conver.messages)
+        const inp = document.getElementById("ipChat")
+        inp.value = ""
+        //socket
     },[navState.messContent])
 
     //function
@@ -63,7 +69,7 @@ function Mess(){
     function onConnected(stompClient) {
         // Subscribe to the Public Topic
         
-        stompClient.subscribe(`/topic/conver/`, onMessageReceived);
+        stompClient.subscribe('/topic/conver', onMessageReceived);
 
         // Tell your username to the server
         stompClient.send("/app/chat.addUser",
@@ -74,19 +80,22 @@ function Mess(){
       
       
     function onError(error) {
+        console.log(error)
       }
 
     function onMessageReceived(payload) {
-        var message = JSON.parse(payload.body);
-        console.log(message)
-        if(message.state === 'JOIN') {
-           console.log("vao")
-        } else if (message.state === 'LEAVE') {
-           console.log("ra")
-        } else {
-            window.alert("mess in")
+        let mess = JSON.parse(payload.body)
+        const ok = messages.some((value)=>value===mess.idMess)
+        if (mess.state === 'CHAT' && !ok){
+            if (refMessBox.current){
+                setMessages((prev)=>{
+                    const newPrev = prev.map((value)=>value)
+                    newPrev.push(mess.idMess)
+                    return newPrev
+                })
+            }
         }
-    }      
+       }
 
     function sendMess(event, messInput){
         var messageContent = contentMess
@@ -98,8 +107,7 @@ function Mess(){
                 toCon: conver.idConver,
                 state: 'CHAT'
             };
-            var mess = stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
-            
+            stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
         }
         messInput.current.value = ""
         event.preventDefault();
@@ -114,8 +122,9 @@ function Mess(){
                         <h2>{conver.groupName || partner.firstName}</h2>
                     </div>
                     <div className={bodyContentClasses}>
-                        <div className={messBoxClasses}>
-                            {(conver.messages) ? conver.messages.map((mess,index) => <ChatLine key={index} mess={mess} order={conver.messages.length-index}></ChatLine>) : <div></div>}
+                        <div className={messBoxClasses} ref={refMessBox}> 
+                            {(messages) ? messages.map((mess,index) => 
+                            <ChatLine key={index} mess={mess} order={messages.length-index}></ChatLine>) : <div></div>}
                         </div>
                         <div className={chatBoxClasses}> 
                             <input ref={messBox} id="ipChat" type="text" autocomplete="off" onChange={(ev)=>setContentMess(ev.target.value)}></input>
